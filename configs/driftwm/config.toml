@@ -1,0 +1,14 @@
+# Конфигурация DriftArchInf для driftwm
+
+[environment]
+# Устанавливаем nwg-drawer как лаунчер по умолчанию
+LAUNCHER = "nwg-drawer -ovl -nofs"
+
+[keybindings]
+# Вызов меню приложений на Super (Win) или Alt+D
+"mod+d" = "exec nwg-drawer -ovl -nofs"
+"super" = "exec nwg-drawer -ovl -nofs"
+# Закрыть окно
+"mod+q" = "killactive"
+# Выход из driftwm
+"mod+shift+e" = "exit"
