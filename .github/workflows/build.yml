@@ -1,14 +1,14 @@
 name: Build DriftArchInf ISO
 
 on:
-  workflow_dispatch: # Запуск только вручную кнопкой (автосборка отключена)
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
       image: archlinux:latest
-      options: --privileged # Нужно для работы mkarchiso
+      options: --privileged
 
     steps:
       - name: Checkout repository
@@ -28,15 +28,12 @@ jobs:
           sudo -u builder bash -c '
             cd /tmp
             
-            # 1. driftwm
             git clone https://aur.archlinux.org/driftwm-git.git
             cd driftwm-git && makepkg -s --noconfirm && cd ..
             
-            # 2. sfwbar
             git clone https://aur.archlinux.org/sfwbar.git
             cd sfwbar && makepkg -s --noconfirm && cd ..
 
-            # 3. AmneziaVPN (бинарник) и AmneziaWG
             git clone https://aur.archlinux.org/amneziavpn-bin.git
             cd amneziavpn-bin && makepkg -s --noconfirm && cd ..
 
@@ -46,28 +43,23 @@ jobs:
             git clone https://aur.archlinux.org/amneziawg-dkms-git.git
             cd amneziawg-dkms-git && makepkg -s --noconfirm && cd ..
 
-            # 4. chwd (автоопределение драйверов)
             git clone https://aur.archlinux.org/chwd-arch-git.git
             cd chwd-arch-git && makepkg -s --noconfirm && cd ..
             
-            # 5. tun2socks (нужен для AmneziaVPN)
             git clone https://aur.archlinux.org/tun2socks.git
             cd tun2socks && makepkg -s --noconfirm && cd ..
           '
           
-          # Копируем все собранные пакеты в локальный репозиторий профиля
           mkdir -p iso/airootfs/root/local_repo
           cp /tmp/*/*.pkg.tar.zst iso/airootfs/root/local_repo/
           repo-add iso/airootfs/root/local_repo/driftarchinf.db.tar.gz iso/airootfs/root/local_repo/*.pkg.tar.zst
           
-          # Копируем в /root/local_repo на самой машине, чтобы mkarchiso его нашел
           mkdir -p /root/local_repo
           cp /tmp/*/*.pkg.tar.zst /root/local_repo/
           repo-add /root/local_repo/driftarchinf.db.tar.gz /root/local_repo/*.pkg.tar.zst
 
       - name: Build ISO
         run: |
-          # Явно указываем наш pacman.conf через флаг -C
           mkarchiso -v -w ./work -o ./out -C ./iso/pacman.conf ./iso
 
       - name: Upload ISO Artifact
