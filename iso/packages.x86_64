@@ -75,3 +75,17 @@ libsecret
 amneziawg-tools-git
 amneziawg-dkms-git
 chwd-arch-git
+
+network-manager-applet
+
+krita
+
+steam
+lutris
+wine
+wine-staging
+winetricks
+gamemode
+mangohud
+lib32-gamemode
+lib32-mangohud
