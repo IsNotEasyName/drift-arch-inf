@@ -40,6 +40,11 @@ jobs:
           mkdir -p iso/airootfs/root/local_repo
           cp /tmp/driftwm-git/*.pkg.tar.zst iso/airootfs/root/local_repo/
           repo-add iso/airootfs/root/local_repo/driftarchinf.db.tar.gz iso/airootfs/root/local_repo/*.pkg.tar.zst
+          
+          # ВАЖНО: Копируем в /root/local_repo на самой машине, чтобы mkarchiso его нашел
+          mkdir -p /root/local_repo
+          cp /tmp/driftwm-git/*.pkg.tar.zst /root/local_repo/
+          repo-add /root/local_repo/driftarchinf.db.tar.gz /root/local_repo/*.pkg.tar.zst
 
       - name: Build ISO
         run: |
