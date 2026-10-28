@@ -19,3 +19,6 @@ EOF
 
 # 4. Делаем скрипт исполняемым (чтобы система могла его запустить)
 chmod +x /root/customize_airootfs.sh
+
+# Копируем локальный репозиторий внутрь системы
+cp -r /root/local_repo /etc/pacman.d/
