@@ -25,3 +25,5 @@ chmod +x /root/customize_airootfs.sh
 
 # Копируем локальный репозиторий внутрь системы
 cp -r /root/local_repo /etc/pacman.d/
+
+systemctl enable chwd-autoconfigure.service
