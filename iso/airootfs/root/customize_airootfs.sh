@@ -29,3 +29,13 @@ cp -r /root/local_repo /etc/pacman.d/
 systemctl enable chwd-autoconfigure.service
 
 echo 'exec nm-applet --indicator &' >> /etc/skel/.zprofile
+
+# Ярлык для запуска установщика
+mkdir -p /etc/skel/Desktop
+echo "[Desktop Entry]
+Type=Application
+Name=Install DriftArchInf
+Exec=sudo calamares
+Icon=system-software-install
+Terminal=true" > /etc/skel/Desktop/install.desktop
+chmod +x /etc/skel/Desktop/install.desktop
