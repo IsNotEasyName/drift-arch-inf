@@ -35,7 +35,7 @@ jobs:
             git clone https://aur.archlinux.org/sfwbar.git
             cd sfwbar && makepkg -s --noconfirm && cd ..
 
-            # AmneziaVPN
+            # AmneziaVPN и WG
             git clone https://aur.archlinux.org/amneziavpn-bin.git
             cd amneziavpn-bin && makepkg -s --noconfirm && cd ..
 
@@ -60,7 +60,6 @@ jobs:
             cd vkbasalt && makepkg -s --noconfirm && cd ..
           '
           
-          # Копируем пакеты в локальный репозиторий
           mkdir -p iso/airootfs/root/local_repo
           cp /tmp/*/*.pkg.tar.zst iso/airootfs/root/local_repo/
           repo-add iso/airootfs/root/local_repo/driftarchinf.db.tar.gz iso/airootfs/root/local_repo/*.pkg.tar.zst
