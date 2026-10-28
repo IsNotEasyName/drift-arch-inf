@@ -1,0 +1,54 @@
+name: Build DriftArchInf ISO
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Позволяет запускать сборку вручную кнопкой
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+      options: --privileged # Нужно для работы mkarchiso
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm archiso base-devel git sudo
+
+      - name: Build AUR package (driftwm)
+        run: |
+          # makepkg нельзя запускать от root, поэтому создаем юзера
+          useradd -m builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          chown -R builder:builder .
+          
+          # Собираем пакет driftwm-git
+          sudo -u builder bash -c '
+            cd /tmp
+            git clone https://aur.archlinux.org/driftwm-git.git
+            cd driftwm-git
+            makepkg -s --noconfirm
+          '
+          
+          # Копируем собранный пакет в локальный репозиторий профиля ISO
+          mkdir -p iso/airootfs/root/local_repo
+          cp /tmp/driftwm-git/*.pkg.tar.zst iso/airootfs/root/local_repo/
+          repo-add iso/airootfs/root/local_repo/driftarchinf.db.tar.gz iso/airootfs/root/local_repo/*.pkg.tar.zst
+
+      - name: Build ISO
+        run: |
+          # Собираем ISO
+          mkarchiso -v -w ./work -o ./out ./iso
+
+      - name: Upload ISO Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DriftArchInf-ISO
+          path: out/*.iso
+          retention-days: 7
