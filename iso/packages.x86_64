@@ -7,20 +7,17 @@ efibootmgr
 amd-ucode
 intel-ucode
 
-# Композитор и оболочка
 driftwm-git
 nwg-drawer
 sfwbar
+chwd-arch-git
 
-# Драйвера
 nvidia-open-dkms
 nvidia-utils
 egl-wayland
 libva-nvidia-driver
 xorg-xwayland
-chwd-arch-git
 
-# Сеть (Wi-Fi и VPN)
 network-manager-applet
 openvpn
 wireguard-tools
@@ -30,14 +27,12 @@ networkmanager-strongswan
 amneziawg-tools-git
 amneziawg-dkms-git
 
-# Звук
 pipewire
 pipewire-pulse
 pipewire-alsa
 wireplumber
 pavucontrol
 
-# Базовые приложения
 firefox
 ghostty
 thunar
@@ -55,7 +50,6 @@ zip
 htop
 btop
 
-# Оформление и утилиты
 mako
 wl-clipboard
 swaybg
@@ -71,7 +65,6 @@ bluez
 bluez-utils
 blueman
 
-# Графика и Игры
 krita
 steam
 lutris
@@ -82,15 +75,9 @@ gamemode
 mangohud
 lib32-gamemode
 lib32-mangohud
-protonup-qt
-vkbasalt
 
-# Установщик и Waydroid
-calamares
 waydroid
 
-# Для AmneziaVPN
 qt6-5compat
 qt6-svg
 libsecret
-driftarchinf-calamares-config
