@@ -5,6 +5,7 @@ sudo
 networkmanager
 efibootmgr
 amd-ucode
+intel-ucode
 
 driftwm-git
 nwg-drawer
