@@ -55,19 +55,20 @@ jobs:
             cd tun2socks && makepkg -s --noconfirm && cd ..
           '
           
-          # Копируем все собранные пакеты в локальный репозиторий
+          # Копируем все собранные пакеты в локальный репозиторий профиля
           mkdir -p iso/airootfs/root/local_repo
           cp /tmp/*/*.pkg.tar.zst iso/airootfs/root/local_repo/
           repo-add iso/airootfs/root/local_repo/driftarchinf.db.tar.gz iso/airootfs/root/local_repo/*.pkg.tar.zst
           
+          # Копируем в /root/local_repo на самой машине, чтобы mkarchiso его нашел
           mkdir -p /root/local_repo
           cp /tmp/*/*.pkg.tar.zst /root/local_repo/
           repo-add /root/local_repo/driftarchinf.db.tar.gz /root/local_repo/*.pkg.tar.zst
 
       - name: Build ISO
         run: |
-          # Собираем ISO
-          mkarchiso -v -w ./work -o ./out ./iso
+          # Явно указываем наш pacman.conf через флаг -C
+          mkarchiso -v -w ./work -o ./out -C ./iso/pacman.conf ./iso
 
       - name: Upload ISO Artifact
         uses: actions/upload-artifact@v4
