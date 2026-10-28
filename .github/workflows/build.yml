@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm archiso base-devel git sudo
+          pacman -S --noconfirm archiso base-devel git sudo rust clang cmake
 
       - name: Build AUR package (driftwm)
         run: |
