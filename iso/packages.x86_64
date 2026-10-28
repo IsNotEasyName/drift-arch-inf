@@ -4,7 +4,7 @@ linux-firmware
 sudo
 networkmanager
 efibootmgr
-intel-ucode
+amd-ucode
 
 driftwm-git
 nwg-drawer
