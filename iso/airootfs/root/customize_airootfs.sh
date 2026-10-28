@@ -27,3 +27,5 @@ chmod +x /root/customize_airootfs.sh
 cp -r /root/local_repo /etc/pacman.d/
 
 systemctl enable chwd-autoconfigure.service
+
+echo 'exec nm-applet --indicator &' >> /etc/skel/.zprofile
