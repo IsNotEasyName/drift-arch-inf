@@ -28,12 +28,14 @@ jobs:
           sudo -u builder bash -c '
             cd /tmp
             
+            # Основные пакеты
             git clone https://aur.archlinux.org/driftwm-git.git
             cd driftwm-git && makepkg -s --noconfirm && cd ..
             
             git clone https://aur.archlinux.org/sfwbar.git
             cd sfwbar && makepkg -s --noconfirm && cd ..
 
+            # AmneziaVPN
             git clone https://aur.archlinux.org/amneziavpn-bin.git
             cd amneziavpn-bin && makepkg -s --noconfirm && cd ..
 
@@ -43,13 +45,22 @@ jobs:
             git clone https://aur.archlinux.org/amneziawg-dkms-git.git
             cd amneziawg-dkms-git && makepkg -s --noconfirm && cd ..
 
-            git clone https://aur.archlinux.org/chwd-arch-git.git
-            cd chwd-arch-git && makepkg -s --noconfirm && cd ..
-            
             git clone https://aur.archlinux.org/tun2socks.git
             cd tun2socks && makepkg -s --noconfirm && cd ..
+
+            # Драйвера
+            git clone https://aur.archlinux.org/chwd-arch-git.git
+            cd chwd-arch-git && makepkg -s --noconfirm && cd ..
+
+            # Игры (Proton)
+            git clone https://aur.archlinux.org/protonup-qt.git
+            cd protonup-qt && makepkg -s --noconfirm && cd ..
+
+            git clone https://aur.archlinux.org/vkbasalt.git
+            cd vkbasalt && makepkg -s --noconfirm && cd ..
           '
           
+          # Копируем пакеты в локальный репозиторий
           mkdir -p iso/airootfs/root/local_repo
           cp /tmp/*/*.pkg.tar.zst iso/airootfs/root/local_repo/
           repo-add iso/airootfs/root/local_repo/driftarchinf.db.tar.gz iso/airootfs/root/local_repo/*.pkg.tar.zst
