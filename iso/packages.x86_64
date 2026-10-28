@@ -7,39 +7,38 @@ efibootmgr
 amd-ucode
 intel-ucode
 
+# Композитор и оболочка
 driftwm-git
 nwg-drawer
 sfwbar
 
+# Драйвера
 nvidia-open-dkms
 nvidia-utils
 egl-wayland
 libva-nvidia-driver
 xorg-xwayland
+chwd-arch-git
 
-waydroid
+# Сеть (Wi-Fi и VPN)
+network-manager-applet
+openvpn
+wireguard-tools
+networkmanager-openvpn
+networkmanager-openconnect
+networkmanager-strongswan
+amneziawg-tools-git
+amneziawg-dkms-git
 
-mako
-wl-clipboard
-swaybg
-
-noto-fonts
-noto-fonts-emoji
-ttf-liberation
-papirus-icon-theme
-adwaita-icon-theme
-gnome-themes-extra
-
+# Звук
 pipewire
 pipewire-pulse
 pipewire-alsa
 wireplumber
 pavucontrol
 
+# Базовые приложения
 firefox
-nm-connection-editor
-transmission-gtk
-
 ghostty
 thunar
 file-roller
@@ -56,30 +55,24 @@ zip
 htop
 btop
 
+# Оформление и утилиты
+mako
+wl-clipboard
+swaybg
+noto-fonts
+noto-fonts-emoji
+ttf-liberation
+papirus-icon-theme
+adwaita-icon-theme
+gnome-themes-extra
 grim
 slurp
-
 bluez
 bluez-utils
 blueman
 
-openvpn
-wireguard-tools
-networkmanager-openvpn
-networkmanager-openconnect
-networkmanager-strongswan
-
-qt6-5compat
-qt6-svg
-libsecret
-amneziawg-tools-git
-amneziawg-dkms-git
-chwd-arch-git
-
-network-manager-applet
-
+# Графика и Игры
 krita
-
 steam
 lutris
 wine
@@ -89,3 +82,14 @@ gamemode
 mangohud
 lib32-gamemode
 lib32-mangohud
+protonup-qt
+vkbasalt
+
+# Установщик и Waydroid
+calamares
+waydroid
+
+# Для AmneziaVPN
+qt6-5compat
+qt6-svg
+libsecret
