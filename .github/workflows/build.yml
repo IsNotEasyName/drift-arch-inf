@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm archiso base-devel git sudo rust clang cmake meson ninja go dkms
+          pacman -S --noconfirm archiso base-devel git sudo rust clang cmake meson ninja go dkms linux-headers
 
       - name: Build AUR packages
         run: |
@@ -49,6 +49,10 @@ jobs:
             # 4. chwd (автоопределение драйверов)
             git clone https://aur.archlinux.org/chwd-arch-git.git
             cd chwd-arch-git && makepkg -s --noconfirm && cd ..
+            
+            # 5. tun2socks (нужен для AmneziaVPN)
+            git clone https://aur.archlinux.org/tun2socks.git
+            cd tun2socks && makepkg -s --noconfirm && cd ..
           '
           
           # Копируем все собранные пакеты в локальный репозиторий
