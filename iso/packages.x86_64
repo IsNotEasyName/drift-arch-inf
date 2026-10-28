@@ -3,12 +3,23 @@ linux
 linux-firmware
 sudo
 networkmanager
+
+# Наш композитор и оболочка
 driftwm-git
 nwg-drawer
-xorg-xwayland
-waydroid
 sfwbar
+
+# Драйвера NVIDIA
 nvidia-open-dkms
 nvidia-utils
 egl-wayland
 libva-nvidia-driver
+xorg-xwayland
+
+# Android
+waydroid
+
+# Базовые приложения для работы (очень важно!)
+foot                  # Терминал
+thunar                # Файловый менеджер
+firefox               # Браузер
