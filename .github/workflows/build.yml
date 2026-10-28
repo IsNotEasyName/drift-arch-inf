@@ -45,6 +45,10 @@ jobs:
 
             git clone https://aur.archlinux.org/amneziawg-dkms-git.git
             cd amneziawg-dkms-git && makepkg -s --noconfirm && cd ..
+
+            # 4. chwd (автоопределение драйверов)
+            git clone https://aur.archlinux.org/chwd-arch-git.git
+            cd chwd-arch-git && makepkg -s --noconfirm && cd ..
           '
           
           # Копируем все собранные пакеты в локальный репозиторий
