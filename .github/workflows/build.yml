@@ -1,9 +1,7 @@
 name: Build DriftArchInf ISO
 
 on:
-  push:
-    branches: [ "main" ]
-  workflow_dispatch: # Позволяет запускать сборку вручную кнопкой
+  workflow_dispatch: # Запуск только вручную кнопкой (автосборка отключена)
 
 jobs:
   build:
