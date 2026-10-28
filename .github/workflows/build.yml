@@ -19,42 +19,43 @@ jobs:
       - name: Install dependencies
         run: |
           pacman -Syu --noconfirm
-          # Добавили meson и ninja для сборки sfwbar
-          pacman -S --noconfirm archiso base-devel git sudo rust clang cmake meson ninja
+          pacman -S --noconfirm archiso base-devel git sudo rust clang cmake meson ninja go dkms
 
-      - name: Build AUR packages (driftwm & sfwbar)
+      - name: Build AUR packages
         run: |
-          # makepkg нельзя запускать от root, поэтому создаем юзера
           useradd -m builder
           echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           chown -R builder:builder .
           
-          # Собираем оба пакета из AUR
           sudo -u builder bash -c '
             cd /tmp
             
-            # 1. Сборка driftwm
+            # 1. driftwm
             git clone https://aur.archlinux.org/driftwm-git.git
-            cd driftwm-git
-            makepkg -s --noconfirm
-            cd ..
-
-            # 2. Сборка sfwbar
+            cd driftwm-git && makepkg -s --noconfirm && cd ..
+            
+            # 2. sfwbar
             git clone https://aur.archlinux.org/sfwbar.git
-            cd sfwbar
-            makepkg -s --noconfirm
+            cd sfwbar && makepkg -s --noconfirm && cd ..
+
+            # 3. AmneziaVPN (бинарник) и AmneziaWG
+            git clone https://aur.archlinux.org/amneziavpn-bin.git
+            cd amneziavpn-bin && makepkg -s --noconfirm && cd ..
+
+            git clone https://aur.archlinux.org/amneziawg-tools-git.git
+            cd amneziawg-tools-git && makepkg -s --noconfirm && cd ..
+
+            git clone https://aur.archlinux.org/amneziawg-dkms-git.git
+            cd amneziawg-dkms-git && makepkg -s --noconfirm && cd ..
           '
           
-          # Копируем собранные пакеты в локальный репозиторий профиля ISO
+          # Копируем все собранные пакеты в локальный репозиторий
           mkdir -p iso/airootfs/root/local_repo
-          cp /tmp/driftwm-git/*.pkg.tar.zst iso/airootfs/root/local_repo/
-          cp /tmp/sfwbar/*.pkg.tar.zst iso/airootfs/root/local_repo/
+          cp /tmp/*/*.pkg.tar.zst iso/airootfs/root/local_repo/
           repo-add iso/airootfs/root/local_repo/driftarchinf.db.tar.gz iso/airootfs/root/local_repo/*.pkg.tar.zst
           
-          # ВАЖНО: Копируем в /root/local_repo на самой машине, чтобы mkarchiso его нашел
           mkdir -p /root/local_repo
-          cp /tmp/driftwm-git/*.pkg.tar.zst /root/local_repo/
-          cp /tmp/sfwbar/*.pkg.tar.zst /root/local_repo/
+          cp /tmp/*/*.pkg.tar.zst /root/local_repo/
           repo-add /root/local_repo/driftarchinf.db.tar.gz /root/local_repo/*.pkg.tar.zst
 
       - name: Build ISO
