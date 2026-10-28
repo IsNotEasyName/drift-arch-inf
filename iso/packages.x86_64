@@ -8,3 +8,7 @@ nwg-drawer
 xorg-xwayland
 waydroid
 sfwbar
+nvidia-open-dkms
+nvidia-utils
+egl-wayland
+libva-nvidia-driver
