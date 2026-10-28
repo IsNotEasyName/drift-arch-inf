@@ -19,6 +19,7 @@ nvidia-utils
 egl-wayland
 libva-nvidia-driver
 xorg-xwayland
+chwd-arch-git
 
 # Android (Waydroid)
 waydroid
