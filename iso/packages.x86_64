@@ -1,4 +1,3 @@
-# База и ядро
 base
 linux
 linux-firmware
@@ -8,28 +7,22 @@ efibootmgr
 amd-ucode
 intel-ucode
 
-# Наш композитор и оболочка
 driftwm-git
 nwg-drawer
 sfwbar
 
-# Драйвера NVIDIA и Wayland
 nvidia-open-dkms
 nvidia-utils
 egl-wayland
 libva-nvidia-driver
 xorg-xwayland
-chwd-arch-git
 
-# Android (Waydroid)
 waydroid
 
-# --- 🌐 СИСТЕМНЫЕ УТИЛИТЫ WAYLAND (КРИТИЧНО) ---
-mako                    # Уведомления (всплывающие окошки)
-wl-clipboard            # Буфер обмена (Ctrl+C, Ctrl+V)
-swaybg                  # Установка обоев рабочего стола
+mako
+wl-clipboard
+swaybg
 
-# --- 🎨 ШРИФТЫ И ТЕМЫ (Чтоб было красиво) ---
 noto-fonts
 noto-fonts-emoji
 ttf-liberation
@@ -37,48 +30,48 @@ papirus-icon-theme
 adwaita-icon-theme
 gnome-themes-extra
 
-# --- 🎵 ЗВУК ---
 pipewire
 pipewire-pulse
 pipewire-alsa
 wireplumber
 pavucontrol
 
-# --- 🌐 ИНТЕРНЕТ И СЕТЬ ---
 firefox
 nm-connection-editor
-transmission-gtk        # Торренты
+transmission-gtk
 
-# --- 🛠 БАЗОВЫЕ ПРИЛОЖЕНИЯ ---
-ghostty                 # Терминал
-thunar                  # Файловый менеджер
-file-roller             # Архиватор
-gedit                   # Блокнот
+ghostty
+thunar
+file-roller
+gedit
 gnome-calculator
 gnome-system-monitor
-eog                     # Просмотр фото
-evince                  # Просмотр PDF
-mpv                     # Видеоплеер
-vlc                     # Еще один видеоплеер (на всякий случай)
-unzip                   # Распаковка zip
-zip                     # Запаковка zip
-p7zip                   # Распаковка 7z
-htop                    # Крутой монитор процессов в консоли
-btop                    # Еще более крутой монитор процессов
+eog
+evince
+mpv
+vlc
+unzip
+zip
+7zip
+htop
+btop
 
-# --- 🎬 СКРИНШОТЫ ---
 grim
 slurp
 
-# --- 📱 БЛЮТУЗ ---
 bluez
 bluez-utils
-blueman                 # GUI для Bluetooth
+blueman
 
-# 🛡️ AmneziaVPN и AmneziaWG
+openvpn
+wireguard-tools
+networkmanager-openvpn
+networkmanager-openconnect
+networkmanager-strongswan
+
 qt6-5compat
 qt6-svg
 libsecret
-tun2socks
 amneziawg-tools-git
 amneziawg-dkms-git
+chwd-arch-git
