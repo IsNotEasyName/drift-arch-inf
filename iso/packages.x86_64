@@ -1,4 +1,4 @@
-# База
+# База и ядро
 base
 linux
 linux-firmware
@@ -13,38 +13,71 @@ driftwm-git
 nwg-drawer
 sfwbar
 
-# Драйвера (NVIDIA)
+# Драйвера NVIDIA и Wayland
 nvidia-open-dkms
 nvidia-utils
 egl-wayland
 libva-nvidia-driver
 xorg-xwayland
 
-# Android
+# Android (Waydroid)
 waydroid
 
-# 🌐 Интернет и сеть
-firefox
-nm-connection-editor
+# --- 🌐 СИСТЕМНЫЕ УТИЛИТЫ WAYLAND (КРИТИЧНО) ---
+mako                    # Уведомления (всплывающие окошки)
+wl-clipboard            # Буфер обмена (Ctrl+C, Ctrl+V)
+swaybg                  # Установка обоев рабочего стола
 
-# 🎵 Звук (ОБЯЗАТЕЛЬНО для Arch)
+# --- 🎨 ШРИФТЫ И ТЕМЫ (Чтоб было красиво) ---
+noto-fonts
+noto-fonts-emoji
+ttf-liberation
+papirus-icon-theme
+adwaita-icon-theme
+gnome-themes-extra
+
+# --- 🎵 ЗВУК ---
 pipewire
 pipewire-pulse
 pipewire-alsa
 wireplumber
 pavucontrol
 
-# 📱 Базовые приложения (GTK/GNOME стиль)
-ghostty
-thunar
-file-roller
-gedit
+# --- 🌐 ИНТЕРНЕТ И СЕТЬ ---
+firefox
+nm-connection-editor
+transmission-gtk        # Торренты
+
+# --- 🛠 БАЗОВЫЕ ПРИЛОЖЕНИЯ ---
+ghostty                 # Терминал
+thunar                  # Файловый менеджер
+file-roller             # Архиватор
+gedit                   # Блокнот
 gnome-calculator
 gnome-system-monitor
-eog
-evince
+eog                     # Просмотр фото
+evince                  # Просмотр PDF
+mpv                     # Видеоплеер
+vlc                     # Еще один видеоплеер (на всякий случай)
+unzip                   # Распаковка zip
+zip                     # Запаковка zip
+p7zip                   # Распаковка 7z
+htop                    # Крутой монитор процессов в консоли
+btop                    # Еще более крутой монитор процессов
 
-# 🎬 Медиа и скриншоты
-mpv
+# --- 🎬 СКРИНШОТЫ ---
 grim
 slurp
+
+# --- 📱 БЛЮТУЗ ---
+bluez
+bluez-utils
+blueman                 # GUI для Bluetooth
+
+# 🛡️ AmneziaVPN и AmneziaWG
+qt6-5compat
+qt6-svg
+libsecret
+tun2socks
+amneziawg-tools-git
+amneziawg-dkms-git
