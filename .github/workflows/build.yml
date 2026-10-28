@@ -19,31 +19,42 @@ jobs:
       - name: Install dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm archiso base-devel git sudo rust clang cmake
+          # Добавили meson и ninja для сборки sfwbar
+          pacman -S --noconfirm archiso base-devel git sudo rust clang cmake meson ninja
 
-      - name: Build AUR package (driftwm)
+      - name: Build AUR packages (driftwm & sfwbar)
         run: |
           # makepkg нельзя запускать от root, поэтому создаем юзера
           useradd -m builder
           echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           chown -R builder:builder .
           
-          # Собираем пакет driftwm-git
+          # Собираем оба пакета из AUR
           sudo -u builder bash -c '
             cd /tmp
+            
+            # 1. Сборка driftwm
             git clone https://aur.archlinux.org/driftwm-git.git
             cd driftwm-git
             makepkg -s --noconfirm
+            cd ..
+
+            # 2. Сборка sfwbar
+            git clone https://aur.archlinux.org/sfwbar.git
+            cd sfwbar
+            makepkg -s --noconfirm
           '
           
-          # Копируем собранный пакет в локальный репозиторий профиля ISO
+          # Копируем собранные пакеты в локальный репозиторий профиля ISO
           mkdir -p iso/airootfs/root/local_repo
           cp /tmp/driftwm-git/*.pkg.tar.zst iso/airootfs/root/local_repo/
+          cp /tmp/sfwbar/*.pkg.tar.zst iso/airootfs/root/local_repo/
           repo-add iso/airootfs/root/local_repo/driftarchinf.db.tar.gz iso/airootfs/root/local_repo/*.pkg.tar.zst
           
           # ВАЖНО: Копируем в /root/local_repo на самой машине, чтобы mkarchiso его нашел
           mkdir -p /root/local_repo
           cp /tmp/driftwm-git/*.pkg.tar.zst /root/local_repo/
+          cp /tmp/sfwbar/*.pkg.tar.zst /root/local_repo/
           repo-add /root/local_repo/driftarchinf.db.tar.gz /root/local_repo/*.pkg.tar.zst
 
       - name: Build ISO
