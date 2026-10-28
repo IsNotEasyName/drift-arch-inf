@@ -17,6 +17,9 @@ if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
 fi
 EOF
 
+# Устанавливаем ghostty как терминал по умолчанию для driftwm
+echo 'export TERMINAL=ghostty' >> /etc/skel/.zprofile
+
 # 4. Делаем скрипт исполняемым (чтобы система могла его запустить)
 chmod +x /root/customize_airootfs.sh
 
