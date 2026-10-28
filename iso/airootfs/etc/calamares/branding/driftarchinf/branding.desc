@@ -1,0 +1,33 @@
+---
+componentName: driftarchinf
+
+# Строки приветствия
+welcomeStyleCalamares: true
+welcomeExpandingLogo: true
+
+# Настройки окна
+windowExpanding: normal
+windowSize: 800px,520px
+windowPlacement: center
+
+# Цвета (в стиле тёмной темы)
+style:
+  sidebarBackground: "#2E3440"
+  sidebarText: "#D8DEE9"
+  sidebarTextSelect: "#81A1C1"
+  sidebarTextHighlight: "#5E81AC"
+
+# Картинки (можно добавить свои позже)
+images:
+  productLogo: "logo.png"
+  productIcon: "icon.png"
+  productWelcome: "welcome.png"
+
+# Тексты
+strings:
+  productName: "DriftArchInf"
+  version: "v0.2.0"
+  shortVersion: "0.2.0"
+  versionedName: "DriftArchInf 0.2.0"
+  shortVersionedName: "DriftArchInf 0.2"
+  bootLoaderEntryName: "DriftArchInf"
