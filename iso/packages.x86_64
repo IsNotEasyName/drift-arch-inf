@@ -3,23 +3,21 @@ linux
 linux-firmware
 sudo
 networkmanager
+efibootmgr
+intel-ucode
 
-# Наш композитор и оболочка
 driftwm-git
 nwg-drawer
 sfwbar
 
-# Драйвера NVIDIA
 nvidia-open-dkms
 nvidia-utils
 egl-wayland
 libva-nvidia-driver
 xorg-xwayland
 
-# Android
 waydroid
 
-# Базовые приложения для работы (очень важно!)
-foot                  # Терминал
-thunar                # Файловый менеджер
-firefox               # Браузер
+foot
+thunar
+firefox
