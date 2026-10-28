@@ -28,14 +28,12 @@ jobs:
           sudo -u builder bash -c '
             cd /tmp
             
-            # Основные пакеты
             git clone https://aur.archlinux.org/driftwm-git.git
             cd driftwm-git && makepkg -s --noconfirm && cd ..
             
             git clone https://aur.archlinux.org/sfwbar.git
             cd sfwbar && makepkg -s --noconfirm && cd ..
 
-            # AmneziaVPN и WG
             git clone https://aur.archlinux.org/amneziavpn-bin.git
             cd amneziavpn-bin && makepkg -s --noconfirm && cd ..
 
@@ -48,16 +46,8 @@ jobs:
             git clone https://aur.archlinux.org/tun2socks.git
             cd tun2socks && makepkg -s --noconfirm && cd ..
 
-            # Драйвера
             git clone https://aur.archlinux.org/chwd-arch-git.git
             cd chwd-arch-git && makepkg -s --noconfirm && cd ..
-
-            # Игры (Proton)
-            git clone https://aur.archlinux.org/protonup-qt.git
-            cd protonup-qt && makepkg -s --noconfirm && cd ..
-
-            git clone https://aur.archlinux.org/vkbasalt.git
-            cd vkbasalt && makepkg -s --noconfirm && cd ..
           '
           
           mkdir -p iso/airootfs/root/local_repo
