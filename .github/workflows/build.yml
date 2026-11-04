@@ -17,14 +17,14 @@ jobs:
       - name: Install dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm archiso base-devel git sudo rust clang cmake meson ninja go dkms linux-headers
+          pacman -S --noconfirm archiso base-devel git sudo rust clang cmake meson ninja go dkms linux-headers calamares
 
       - name: Cache AUR packages
         id: cache-aur
         uses: actions/cache@v4
         with:
           path: /tmp/cached_pkgs
-          key: ${{ runner.os }}-aur-pkgs-v2
+          key: ${{ runner.os }}-aur-pkgs-v3
 
       - name: Build AUR packages
         run: |
@@ -60,9 +60,15 @@ jobs:
               git clone https://aur.archlinux.org/chwd-arch-git.git
               cd chwd-arch-git && makepkg -s --noconfirm && cd ..
               
-              # Заменили paru-bin на yay-bin
               git clone https://aur.archlinux.org/yay-bin.git
               cd yay-bin && makepkg -s --noconfirm && cd ..
+
+              # Сборка конфигурации Calamares
+              cd /tmp
+              git clone https://github.com/IsNotEasyName/drift-arch-inf.git calamares-config
+              cd calamares-config/calamares-config
+              makepkg -s --noconfirm
+              cd ..
             '
             mkdir -p /tmp/cached_pkgs
             cp /tmp/*/*.pkg.tar.zst /tmp/cached_pkgs/
