@@ -37,3 +37,5 @@ fi
 
 # 6. Делаем скрипт исполняемым
 chmod +x /root/customize_airootfs.sh
+
+chmod +x /usr/local/bin/drift-setup
