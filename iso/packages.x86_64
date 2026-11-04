@@ -12,6 +12,7 @@ driftwm-git
 nwg-drawer
 sfwbar
 chwd-arch-git
+yay-bin
 
 nvidia-open-dkms
 nvidia-utils
@@ -65,20 +66,8 @@ bluez
 bluez-utils
 blueman
 
-krita
-steam
-lutris
-wine
-wine-staging
-winetricks
-gamemode
-mangohud
-lib32-gamemode
-lib32-mangohud
-
+zenity
 waydroid
-
 qt6-5compat
 qt6-svg
 libsecret
-yay-bin
