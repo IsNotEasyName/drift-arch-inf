@@ -60,6 +60,9 @@ jobs:
 
       - name: Build ISO
         run: |
+          # Очищаем кэш пакетов, чтобы освободить место на сервере
+          pacman -Scc --noconfirm
+          # Собираем ISO
           mkarchiso -v -w ./work -o ./out -C ./iso/pacman.conf ./iso
 
       - name: Upload ISO Artifact
