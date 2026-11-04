@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Drift Setup
+Comment=Установка популярных программ
+Exec=/usr/local/bin/drift-setup
+Icon=system-software-install
+Terminal=false
+Type=Application
+Categories=System;
