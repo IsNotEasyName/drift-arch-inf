@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Окно выбора софта (галочки)
+CHOICE=$(zenity --list --checklist \
+  --title="DriftArchInf Software Center" \
+  --text="Выберите категории программ для установки:" \
+  --column="Выбрать" --column="Категория" --column="Что будет установлено" \
+  FALSE "Gaming" "Steam, Lutris, Wine, Gamemode, MangoHud" \
+  FALSE "Creativity" "Krita, GIMP, DaVinci Resolve (AUR)" \
+  FALSE "Development" "VS Code, JetBrains Toolbox (AUR)" \
+  FALSE "Office" "LibreOffice" \
+  --separator=" " --width=600 --height=350)
+
+# Если пользователь нажал Отмену
+if [ -z "$CHOICE" ]; then
+  exit 0
+fi
+
+# Установка игр
+if [[ "$CHOICE" == *"Gaming"* ]]; then
+  zenity --info --text="Установка игрового софта... Пожалуйста, подождите." --timeout=3
+  sudo pacman -S --noconfirm steam lutris wine wine-staging winetricks gamemode mangohud lib32-gamemode lib32-mangohud
+fi
+
+# Установка для творчества
+if [[ "$CHOICE" == *"Creativity"* ]]; then
+  zenity --info --text="Установка графики... Пожалуйста, подождите." --timeout=3
+  sudo pacman -S --noconfirm krita gimp
+  # DaVinci Resolve ставим из AUR через yay
+  yay -S --noconfirm davinci-resolve || true
+fi
+
+# Установка для разработки
+if [[ "$CHOICE" == *"Development"* ]]; then
+  zenity --info --text="Установка инструментов разработчика... Пожалуйста, подождите." --timeout=3
+  sudo pacman -S --noconfirm code
+  yay -S --noconfirm jetbrains-toolbox || true
+fi
+
+# Офис
+if [[ "$CHOICE" == *"Office"* ]]; then
+  zenity --info --text="Установка офисного пакета... Пожалуйста, подождите." --timeout=3
+  sudo pacman -S --noconfirm libreoffice-still
+fi
+
+# Финальное сообщение
+zenity --info --text="Все выбранные программы успешно установлены!"
