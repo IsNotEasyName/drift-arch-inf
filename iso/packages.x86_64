@@ -3,6 +3,7 @@ linux
 linux-firmware
 sudo
 networkmanager
+network-manager-applet
 efibootmgr
 amd-ucode
 intel-ucode
@@ -18,7 +19,6 @@ egl-wayland
 libva-nvidia-driver
 xorg-xwayland
 
-network-manager-applet
 openvpn
 wireguard-tools
 networkmanager-openvpn
