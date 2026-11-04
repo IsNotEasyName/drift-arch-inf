@@ -1,0 +1,12 @@
+pkgname=driftarchinf-calamares-config
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Calamares configuration for DriftArchInf"
+arch=('any')
+license=('GPL')
+depends=('calamares')
+source=()
+package() {
+    mkdir -p "${pkgdir}/etc/calamares"
+    cp -r "${srcdir}/../iso/airootfs/etc/calamares/"* "${pkgdir}/etc/calamares/"
+}
