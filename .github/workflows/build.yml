@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm archiso base-devel git sudo rust clang cmake meson ninja go dkms linux-headers calamares
+          pacman -S --noconfirm archiso base-devel git sudo rust clang cmake meson ninja go dkms linux-headers
 
       - name: Cache AUR packages
         id: cache-aur
