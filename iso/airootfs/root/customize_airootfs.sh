@@ -2,40 +2,38 @@
 set -e -u
 
 # 1. Копируем конфиги в системную папку скелета (/etc/skel)
-# Все новые пользователи автоматически получат эти настройки
 mkdir -p /etc/skel/.config
 cp -r /root/configs/* /etc/skel/.config/ || true
 
-# 2. Включаем NetworkManager, чтобы был интернет
-systemctl enable NetworkManager.service
+# 2. Копируем обои в домашнюю папку пользователя
+mkdir -p /etc/skel/.local/share/wallpapers
+cp /root/wallpapers/*.jpg /etc/skel/.local/share/wallpapers/
 
-# 3. Настраиваем автостарт графической оболочки (driftwm)
-# Создаем файл .zprofile для автозапуска при входе в терминал (tty1)
+# 3. Включаем NetworkManager, чтобы был интернет
+systemctl enable NetworkManager.service
+systemctl enable chwd-autoconfigure.service
+
+# 4. Настраиваем автостарт графической оболочки (driftwm)
 cat > /etc/skel/.zprofile << 'EOF'
 if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+    # Запускаем случайные обои из папки (в фоне)
+    WALLPAPER=$(find /etc/skel/.local/share/wallpapers -name "*.jpg" | shuf -n 1)
+    swaybg -i "$WALLPAPER" &
+    
+    # Запускаем апплет Wi-Fi
+    nm-applet --indicator &
+    
+    # Запускаем композитор
     exec driftwm
 fi
 EOF
 
-# Устанавливаем ghostty как терминал по умолчанию для driftwm
-echo 'export TERMINAL=ghostty' >> /etc/skel/.zprofile
+# 5. Проверка наличия видеокарты NVIDIA и применение настроек
+if lspci | grep -i 'nvidia' | grep -q -E "RTX [2-9][0-9]|GTX 16"; then
+    echo "MODULES+=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)" > /etc/mkinitcpio.conf.d/nvidia.conf
+    echo "options nvidia_drm modeset=1" > /etc/modprobe.d/nvidia.conf
+    mkinitcpio -P
+fi
 
-# 4. Делаем скрипт исполняемым (чтобы система могла его запустить)
+# 6. Делаем скрипт исполняемым
 chmod +x /root/customize_airootfs.sh
-
-# Копируем локальный репозиторий внутрь системы
-cp -r /root/local_repo /etc/pacman.d/
-
-systemctl enable chwd-autoconfigure.service
-
-echo 'exec nm-applet --indicator &' >> /etc/skel/.zprofile
-
-# Ярлык для запуска установщика
-mkdir -p /etc/skel/Desktop
-echo "[Desktop Entry]
-Type=Application
-Name=Install DriftArchInf
-Exec=sudo calamares
-Icon=system-software-install
-Terminal=true" > /etc/skel/Desktop/install.desktop
-chmod +x /etc/skel/Desktop/install.desktop
