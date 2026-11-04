@@ -19,13 +19,12 @@ jobs:
           pacman -Syu --noconfirm
           pacman -S --noconfirm archiso base-devel git sudo rust clang cmake meson ninja go dkms linux-headers
 
-      # 🚀 ВОТ ОН, МАГИЧЕСКИЙ КЭШ
       - name: Cache AUR packages
         id: cache-aur
         uses: actions/cache@v4
         with:
           path: /tmp/cached_pkgs
-          key: ${{ runner.os }}-aur-pkgs-v1
+          key: ${{ runner.os }}-aur-pkgs-v2
 
       - name: Build AUR packages
         run: |
@@ -33,7 +32,6 @@ jobs:
           echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           chown -R builder:builder .
           
-          # Проверяем, есть ли пакеты в кэше
           if [ "${{ steps.cache-aur.outputs.cache-hit }}" == "true" ]; then
             echo "✅ Пакеты найдены в кэше! Пропускаем компиляцию."
           else
@@ -61,13 +59,15 @@ jobs:
 
               git clone https://aur.archlinux.org/chwd-arch-git.git
               cd chwd-arch-git && makepkg -s --noconfirm && cd ..
+              
+              # Заменили paru-bin на yay-bin
+              git clone https://aur.archlinux.org/yay-bin.git
+              cd yay-bin && makepkg -s --noconfirm && cd ..
             '
-            # Сохраняем собранные пакеты в папку для кэша
             mkdir -p /tmp/cached_pkgs
             cp /tmp/*/*.pkg.tar.zst /tmp/cached_pkgs/
           fi
           
-          # Копируем пакеты (из кэша или только что собранные) в локальный репозиторий профиля
           mkdir -p iso/airootfs/root/local_repo
           cp /tmp/cached_pkgs/*.pkg.tar.zst iso/airootfs/root/local_repo/
           repo-add iso/airootfs/root/local_repo/driftarchinf.db.tar.gz iso/airootfs/root/local_repo/*.pkg.tar.zst
@@ -78,9 +78,7 @@ jobs:
 
       - name: Build ISO
         run: |
-          # Очищаем кэш пакетов, чтобы освободить место на сервере
           pacman -Scc --noconfirm
-          # Собираем ISO
           mkarchiso -v -w ./work -o ./out -C ./iso/pacman.conf ./iso
 
       - name: Upload ISO Artifact
